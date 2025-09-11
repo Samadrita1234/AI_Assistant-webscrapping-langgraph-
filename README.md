@@ -36,14 +36,7 @@ A lightweight, offline-friendly AI assistant that provides answers about Occams 
           │      Router → Retriever → Output Node  │
           │  - LLM Response + Fallback             │
           └────────────────────────────────────────┘
----
-
-## **1. Architecture Overview**
-
-```text
----
-
-## **2. Key Design Choices **
+-- Key Design Choices **
 
 **Minimal Stack:**  
 The system uses small, focused libraries: **BeautifulSoup** for scraping, **FAISS** for offline vector search, **Ollama** for local LLM inference, and **Streamlit** for the frontend. This makes it lightweight, portable, and easy to maintain. The trade-off is fewer out-of-the-box features but greater clarity and simplicity.
