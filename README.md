@@ -36,7 +36,11 @@ A lightweight, offline-friendly AI assistant that provides answers about Occams 
           │      Router → Retriever → Output Node  │
           │  - LLM Response + Fallback             │
           └────────────────────────────────────────┘
+---
 
+## **1. Architecture Overview**
+
+```text
 ---
 
 ## **2. Key Design Choices **
