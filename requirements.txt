@@ -1,0 +1,6 @@
+streamlit
+selenium
+beautifulsoup4
+langchain_ollama
+langchain
+faiss-cpu
