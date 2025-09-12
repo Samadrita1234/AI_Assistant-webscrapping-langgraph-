@@ -130,3 +130,44 @@ python build_embeddings.py
 
 8. Run the Streamlit App
 streamlit run main.py
+---
+
+## **9. Design Boundaries & Future Considerations**
+
+### 🔹 What did we not build (and why)?
+We focused on keeping the system **lightweight and offline-friendly**. That means:  
+- No cloud database – all data is stored locally to minimize PII exposure.  
+- No heavy orchestration tools (like LangChain agents) – simpler code is easier to maintain and debug.  
+- No multi-language support yet – we kept scope narrow to English for faster prototyping.  
+
+This kept the project small, private, and easy to run without extra infrastructure.
+
+---
+
+### 🔹 How does the system behave if scraping fails or the LLM/API is down?
+- **If scraping fails** → the system falls back to the **last saved knowledge.json**, so the assistant can still function with older data.  
+- **If the LLM or Ollama is down** → the chatbot switches to **safe predefined fallback responses** (e.g., “Sorry, I don’t know the answer right now.”). This ensures the app never breaks completely.  
+
+---
+
+### 🔹 Where could this be gamed or produce unsafe answers?
+- If a user deliberately asks **off-topic or misleading questions**, the LLM could still try to answer beyond the company scope.  
+- If malicious inputs are given (e.g., prompts to “ignore rules” or “leak data”), the assistant could potentially misbehave.  
+
+To mitigate this, we added:  
+- **Strict fallbacks** → “I don’t know” when no context is found.  
+- **PII masking** → user details are never leaked in model prompts.  
+- **Limited knowledge base** → only content from the official site is embedded.  
+
+---
+
+### 🔹 How could we extend this to support OTP verification (without leaking PII)?
+If we needed OTP verification in the future:  
+- OTP generation and validation should happen **locally** (e.g., sending codes via email/SMS from a local server or company’s secure API).  
+- PII (email/phone) should never be sent to third-party services like public APIs.  
+- Instead, verification could use:  
+  - **Local SMTP setup** for emails.  
+  - **Company’s in-house SMS gateway** if available.  
+- This way, OTP adds a layer of authentication **without exposing personal data externally**.
+
+---
