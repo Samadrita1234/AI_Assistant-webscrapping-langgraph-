@@ -161,7 +161,7 @@ To mitigate this, we added:
 
 ---
 
-### 🔹 How could we extend this to support OTP verification (without leaking PII)?
+**🔹 How could we extend this to support OTP verification (without leaking PII)?**
 If we needed OTP verification in the future:  
 - OTP generation and validation should happen **locally** (e.g., sending codes via email/SMS from a local server or company’s secure API).  
 - PII (email/phone) should never be sent to third-party services like public APIs.  
