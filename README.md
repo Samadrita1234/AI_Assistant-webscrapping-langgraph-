@@ -36,65 +36,55 @@ A lightweight, offline-friendly AI assistant that provides answers about Occams 
           │      Router → Retriever → Output Node  │
           │  - LLM Response + Fallback             │
           └────────────────────────────────────────┘
--- Key Design Choices **
+-- Key Design Choices 
 
-**Minimal Stack:**  
-The system uses small, focused libraries: **BeautifulSoup** for scraping, **FAISS** for offline vector search, **Ollama** for local LLM inference, and **Streamlit** for the frontend. This makes it lightweight, portable, and easy to maintain. The trade-off is fewer out-of-the-box features but greater clarity and simplicity.
+Minimal Stack: 
+The system uses small, focused libraries: BeautifulSoup for scraping, FAISS for offline vector search, Ollama for local LLM inference, and **Streamlit** for the frontend. This makes it lightweight, portable, and easy to maintain. The trade-off is fewer out-of-the-box features but greater clarity and simplicity.
 
-**Fallback Logic for Offline-Friendliness:**  
+Fallback Logic for Offline-Friendliness: 
 When the LLM/API is unavailable, pre-defined helpful responses are served to ensure continuity. This reduces richness of answers but guarantees usability even offline.
 
-**Dynamic Prompt Handling:**  
+Dynamic Prompt Handling:  
 Instead of hardcoding replies for greetings or unknown queries, the LLM generates answers based on context and defined rules. This is flexible but requires careful prompt design to prevent hallucinations.
 
----
+3. Threat Model
 
-## **3. Threat Model**
-
-**PII Flow:**  
+PII Flow:  
 - User data (name, email, phone) is collected during onboarding.  
 - Stored locally in `user_data.json` and session state during runtime.  
 - Masked before sending prompts to the LLM, so sensitive info never leaves the system.
 
-**Mitigation:**  
+Mitigation:
 - No unmasked PII is transmitted externally.  
 - Session-based masking ensures safe interaction with the LLM.  
 - Local storage minimizes third-party exposure.
 
----
-
-## **4. Scraping Approach**
+4. Scraping Approach
 
 - Used **Selenium + BeautifulSoup** to extract unstructured content from occamsadvisory.com.  
 - Targeted headings, paragraphs, and main text blocks; filtered out boilerplate and duplicates.  
 - Saved raw data in `knowledge.json`, processed into clean chunks in `chunks.json`.  
 - Generated vector embeddings with **Ollama + FAISS** for efficient retrieval during chat.
 
----
+5. Failure Modes & Graceful Degradation
 
-## **5. Failure Modes & Graceful Degradation**
-
-**Potential Failures:**  
+Potential Failures:  
 - LLM/API unavailable → serves fallback text with key company info.  
 - No relevant context found → returns safe “❌ Sorry, I don’t know the answer based on our data.”  
 - Invalid user inputs → form validation prevents onboarding until corrected.
 
-**Graceful Handling:**  
+Graceful Handling: 
 - Predefined responses keep the app functional without AI.  
 - Masking prevents PII leaks.  
 - Local chat history persists to maintain session continuity.
 
----
+6. Minimal Tests Implemented
 
-## **6. Minimal Tests Implemented**
+- Email & phone validation: Ensures correct format and prevents invalid onboarding.  
+- Unknown question handling: Returns safe fallback without hallucinating.  
+- Chat nudges: Gently guides users to ask questions about services, careers, or contact info.
 
-- **Email & phone validation:** Ensures correct format and prevents invalid onboarding.  
-- **Unknown question handling:** Returns safe fallback without hallucinating.  
-- **Chat nudges:** Gently guides users to ask questions about services, careers, or contact info.
-
----
-
-## **7. Usage**
+7. Usage
 
 1. Install dependencies:  
 ```bash
