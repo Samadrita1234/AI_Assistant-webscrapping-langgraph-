@@ -39,7 +39,7 @@ A lightweight, offline-friendly AI assistant that provides answers about Occams 
 -- Key Design Choices 
 
 Minimal Stack: 
-The system uses small, focused libraries: BeautifulSoup for scraping, FAISS for offline vector search, Ollama for local LLM inference, and **Streamlit** for the frontend. This makes it lightweight, portable, and easy to maintain. The trade-off is fewer out-of-the-box features but greater clarity and simplicity.
+The system uses small, focused libraries: BeautifulSoup for scraping, FAISS for offline vector search, Ollama for local LLM inference, and Streamlit for the frontend. This makes it lightweight, portable, and easy to maintain. The trade-off is fewer out-of-the-box features but greater clarity and simplicity.
 
 Fallback Logic for Offline-Friendliness: 
 When the LLM/API is unavailable, pre-defined helpful responses are served to ensure continuity. This reduces richness of answers but guarantees usability even offline.
@@ -61,10 +61,10 @@ Mitigation:
 
 4. Scraping Approach
 
-- Used **Selenium + BeautifulSoup** to extract unstructured content from occamsadvisory.com.  
+- Used Selenium + BeautifulSoup to extract unstructured content from occamsadvisory.com.  
 - Targeted headings, paragraphs, and main text blocks; filtered out boilerplate and duplicates.  
 - Saved raw data in `knowledge.json`, processed into clean chunks in `chunks.json`.  
-- Generated vector embeddings with **Ollama + FAISS** for efficient retrieval during chat.
+- Generated vector embeddings with Ollama + FAISS for efficient retrieval during chat.
 
 5. Failure Modes & Graceful Degradation
 
