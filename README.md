@@ -131,24 +131,40 @@ A lightweight, offline-friendly AI assistant that provides answers about Occams 
 
 3. **Scrape Website Data:**  
 Generates knowledge.json with raw content from the website.
-Run py scrapper.py
+
+    Run :
+    ```
+    py scrapper.py
+  
+    ```
 
 
 5. **Process Data into Chunks:**  
 Generates chunks.json, which is structured for embedding.
-Run Chunks.py
+
+     Run :
+    ```
+    py chunks.py
+  
+    ```    
 
 
 7. **Build FAISS Vectorstore:**  
 Creates faiss_index for efficient offline retrieval.
-Run embeddings.py
 
+     Run :
+    ```
+    py embeddings.py
+  
+    ```  
+     
+    
+9. **Run the Streamlit App**
 
-9. **Run the Streamlit App**  
-streamlit run main.py
-
-
-
+    ```
+    py -m streamlit run main.py
+  
+    ```  
 ---
 
 ## **8. Design Boundaries & Future Considerations**
