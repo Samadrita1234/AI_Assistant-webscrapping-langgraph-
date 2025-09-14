@@ -171,7 +171,7 @@ Creates faiss_index for efficient offline retrieval.
 
 ### **🔹 What did we not build (and why)?**
 
-We focused on keeping the system **lightweight and offline-friendly**.
+I focused on keeping the system **lightweight and offline-friendly**.
 - No cloud database – all data is stored locally to minimize PII exposure.
 - No heavy orchestration tools (like LangChain agents) – simpler code, easier to maintain and debug.
 - No multi-language support yet – we kept the scope narrow to English for faster prototyping.
